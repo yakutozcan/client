@@ -48,6 +48,7 @@ type Options struct {
 	Exit  bool   `hcl:"key"`
 	Token string `hcl:"token"`
 	Path  string `hcl:"path"`
+	URL   string `hcl:"url"`
 }
 
 func New(options *Options) (*App, error) {
@@ -235,6 +236,7 @@ func (app *App) S2CDeviceTunnelHandler(p packet.Packet) {
 			TunnelPort:       tunnelPort,
 			DevicePort:       devicePort,
 			DeviceTlsEnabled: deviceTlsEnabled,
+			URL:              app.Options.URL,
 		}
 
 		go tunnel.Start()

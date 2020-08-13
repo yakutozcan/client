@@ -34,6 +34,11 @@ func main() {
 				Usage:    "--exit true",
 				Required: false,
 			},
+			&cli.StringFlag{
+				Name:     "url",
+				Usage:    "--url {your local client url}",
+				Required: false,
+			},
 		},
 		Action: func(c *cli.Context) error {
 			path, err := getAppPath()
@@ -49,7 +54,7 @@ func main() {
 			options.Exit = c.Bool("exit")
 			options.Token = ""
 			options.Path = path
-
+			options.URL = c.String("url")
 			if len(options.Key) == 0 {
 
 				tokenBytes, err := ioutil.ReadFile(options.Path + "/cotunnel.key")

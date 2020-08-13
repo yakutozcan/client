@@ -3,27 +3,27 @@ package app
 import (
 	"fmt"
 	"net"
+	"strconv"
 	"sync"
 	"crypto/tls"
 	"time"
 )
 
 type Tunnel struct {
-	Type          int
-	ConnectionUid string
-	TunnelIp      string
-	TunnelPort    int
-	DevicePort    int
-	DeviceTlsEnabled    byte
+	Type             int
+	ConnectionUid    string
+	TunnelIp         string
+	TunnelPort       int
+	DevicePort       int
+	DeviceTlsEnabled byte
+	URL              string
 }
 
 func (t *Tunnel) Start() {
 
 	var err error
 	var deviceConn net.Conn
-
-	deviceAddr := fmt.Sprintf("127.0.0.1:%d", t.DevicePort)
-
+	deviceAddr := t.URL + ":" + strconv.Itoa(t.DevicePort)
 	deviceConnDialer := net.Dialer{Timeout: 1 * time.Second}
 
 	if t.DeviceTlsEnabled == 0 {
